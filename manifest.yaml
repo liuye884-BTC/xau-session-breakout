@@ -1,0 +1,52 @@
+name: xau-session-breakout
+display_name: "XAU Session Breakout"
+description: "Gold futures breakout strategy using London & US session levels with trailing stop"
+long_description: |
+  This Playbook is a breakout strategy on XAUUSDT perpetual futures that tracks
+  two key trading sessions daily (London 07:00-13:00 UTC and US 13:00-20:00 UTC),
+  using their high/low as reference levels. When price breaks a prior session's
+  level, it enters with a stop at 25% daily range, 1:2 RR, and progressive
+  trailing stop that locks profits every 1% move.
+market_type: contract
+trading_symbols: ["XAUUSDT"]
+tags: ["gold", "breakout", "session", "xau", "futures"]
+decision_mode: deterministic
+backtest_support: full
+runtime_profile: deterministic
+execution_mode: signal_only
+follow_trade_supported: false
+strategy_config:
+  trading_symbols: ["XAUUSDT"]
+  stop_atr_multiple: 0.25
+  rr_target: 2.0
+  trailing_step: 0.01
+  leverage: 3
+  margin_budget: "100"
+user_config_schema:
+  trading_symbols:
+    type: array
+    item_type: string
+    default: ["XAUUSDT"]
+    options: ["XAUUSDT"]
+    min_items: 1
+    max_items: 1
+    label: "Trading symbol"
+  stop_atr_multiple:
+    type: number
+    default: 0.25
+    min: 0.1
+    max: 1.0
+    step: 0.05
+    label: "Stop loss multiple"
+  rr_target:
+    type: number
+    default: 2.0
+    min: 1.0
+    max: 5.0
+    step: 0.5
+    label: "Risk-reward ratio"
+  margin_budget:
+    type: string
+    default: "100"
+    pattern: "^[0-9]+(\\.[0-9]+)?$"
+    label: "Margin budget USDT"

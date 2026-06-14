@@ -1,0 +1,34 @@
+venue:
+  name: BINANCE
+  account_type: MARGIN
+  oms_type: NETTING
+  starting_balances:
+    - amount: 100000
+      currency: USDT
+
+strategy:
+  module: strategy
+  class: XauSessionBreakoutStrategy
+  config_class: XauSessionBreakoutConfig
+  config:
+    order_id_tag: "001"
+    trade_size: "0.1"
+    stop_atr_multiple: 0.25
+    rr_target: 2.0
+    trailing_step: 0.01
+
+instrument:
+  id: XAUUSDT.BINANCE
+  kind: perpetual
+  raw_symbol: XAUUSDT
+  base_currency: XAU
+  quote_currency: USDT
+  settlement_currency: USDT
+  price_precision: 2
+  size_precision: 2
+  price_increment: "0.01"
+  size_increment: "0.01"
+  lot_size: "0.01"
+  maker_fee: "0.0002"
+  taker_fee: "0.0006"
+  bar_type: XAUUSDT.BINANCE-1-HOUR-LAST-EXTERNAL
